@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Solitario</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <main>
+    <section class="top">
+      <figure class="deck">
+        <img src="img/2.png" alt="asd" class="card">
+      </figure>
+      <ul class="steal__stack">
+        <img src="img/5.png" alt="asd" class="card">
+        <img src="img/7.png" alt="asd" class="card">
+        <img src="img/9.png" alt="asd" class="card">
+      </ul>
+      <figure class="top__stack">
+        <img src="img/A.png" alt="asd" class="card">
+      </figure>
+      <figure class="top__stack">
+        <img src="img/2.png" alt="asd" class="card">
+      </figure>
+      <figure class="top__stack">
+        <img src="img/7.png" alt="asd" class="card">
+      </figure>
+      <figure class="top__stack">
+        <img src="img/5.png" alt="asd" class="card">
+      </figure>
+    </section>
+    <section>
+      <ul class="card__stack">
+        <img src="img/test.png" alt="asd" class="card">
+      </ul>
+      <ul class="card__stack">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+      </ul>
+      <ul class="card__stack">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+      </ul>
+      <ul class="card__stack">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+      </ul>
+      <ul class="card__stack">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+      </ul>
+      <ul class="card__stack">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+        <img src="img/test.png" alt="asd" class="card">
+      </ul>
+      <ul class="card__stack">
+        <img src="img/test.png" alt="asd" class="card">
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    "use strict";
+
+    const boardElement = document.querySelector("main");
+
+    function debounce(func, wait = 20, immediate = true) {
+      var timeout;
+      return function () {
+        var context = this, args = arguments;
+        var later = function () {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    };
+
+    const changeBoardSize = event => {
+      const size = getSizeFromWindowSize();
+      boardElement.style.height = size.heigth + "px";
+      boardElement.style.width = size.width + "px";
+    };
+
+    const getSizeFromWindowSize = () => {
+      const { innerWidth, innerHeight } = window;
+      const heightRatio = 0.6;
+      const widthRatio = 0.74;
+      const newBoardSize = {
+        heigth: innerWidth * heightRatio,
+        width: innerWidth * widthRatio
+      };
+      const maxHeigth = (innerHeight * 0.95);
+      if (newBoardSize.heigth > maxHeigth) {
+        newBoardSize.heigth = maxHeigth;
+        newBoardSize.width = newBoardSize.heigth * 1.225;
+        console.log("Se paso wey");
+      }
+      return newBoardSize;
+    }
+
+    ["load", "resize"].forEach(type => window.addEventListener(type, debounce(changeBoardSize, 200, false)));
+  </script>
+</body>
+
+</html>
